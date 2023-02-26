@@ -1,7 +1,9 @@
 package dev.christianbaumann.demo;
 
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Locator.InnerTextOptions;
 import dev.christianbaumann.Base;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,7 +18,15 @@ public class LinkTest extends Base {
 
         Locator locatorBrokenImages = page.getByText("Broken Images");
 
+        locatorBrokenImages.scrollIntoViewIfNeeded();
+
+        assertTrue(locatorBrokenImages.isVisible(), "Broken Images link was not visible");
+
         locatorBrokenImages.click();
+
+        Locator header =  page.locator("xpath=//h3[text()='Broken Images']");
+
+        Assertions.assertTrue(header.isVisible());
 
         /*
         // Wait, this was too fast?

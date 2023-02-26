@@ -1,15 +1,26 @@
 package dev.christianbaumann.exercises;
 
+import com.microsoft.playwright.Locator;
 import dev.christianbaumann.Base;
 import org.junit.jupiter.api.Test;
 
 public class JavaScriptAlerts extends Base {
 
     @Test
-    void triggerJavaScriptAlert() {
+    void triggerJavaScriptAlert() throws InterruptedException {
         page = context.newPage();
 
         page.navigate("https://the-internet.herokuapp.com/javascript_alerts");
+
+        Locator clickJsAlertButton = page.getByText("Click for JS Alert");
+
+        clickJsAlertButton.click();
+
+
+
+        page.onDialog(dialog -> dialog.accept());
+
+
 
         // Click “JS Alert”-button
 
